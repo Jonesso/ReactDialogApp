@@ -8,6 +8,7 @@ import reducer from "./reducer";
 import data from "../../data";
 
 import "./styles.css";
+import Title from "./Title";
 
 const Dialog = ({ newMessage }) => {
     const dialogRef = useRef();
@@ -50,9 +51,13 @@ const Dialog = ({ newMessage }) => {
     return (
         <div className="dialog">
             <div className="overflow" ref={dialogRef}>
-                {normalizedDialog.map((item) => (
-                    <Item {...item} key={item.id} onRemove={onRemove} />
-                ))}
+                {normalizedDialog.map((item) =>
+                    item.type === "message" ? (
+                        <Item {...item} key={item.id} onRemove={onRemove} />
+                    ) : (
+                        <Title key={item.id} date={item.date} />
+                    )
+                )}
             </div>
         </div>
     );
